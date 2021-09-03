@@ -1,0 +1,4 @@
+resources:
+  - green-app-deployment.yml
+  - red-app-deployment.yml
+  - ingress.yaml

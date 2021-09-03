@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red-backend-deployment
+  labels:
+    app: red-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: red-app
+  template:
+    metadata:
+      labels:
+        app: red-app
+    spec:
+      containers:
+        - image: pj3677/color-app:1.0.0
+          imagePullPolicy: Always
+          name: red-app
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BG_COLOR
+              value: "#ef4444"
+            - name: FG_COLOR
+              value: "#FFFFFF"
+            - name: MESSAGE
+              value: "RED"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: red-app-service
+spec:
+  type: NodePort
+  selector:
+    app: red-app
+  ports:
+    - port: 3000
+      targetPort: 3000
